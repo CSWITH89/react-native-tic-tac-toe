@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   View,
   TouchableWithoutFeedback,
   Text,
   Alert,
+  Image,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -106,7 +107,15 @@ const App = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.turnRow}>
+      <View
+        style={[
+          styles.row,
+          {borderBottomWidth: 1, borderColor: 'grey', paddingBottom: 20},
+        ]}>
+        <Image source={require('./assets/onair-logo.png')}></Image>
+        <Text style={styles.logoText}>Tic Tac Toe</Text>
+      </View>
+      <View style={styles.row}>
         <Text style={styles.turnRowText}>{`Player ${
           playerTurn === 1 ? '1' : '2'
         } turn`}</Text>
@@ -177,12 +186,21 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-  turnRow: {
+  logoText: {
+    color: 'red',
+    fontSize: 30,
+    fontWeight: '800',
+    marginLeft: 10,
+    alignSelf: 'center',
+  },
+  row: {
+    flexDirection: 'row',
     marginBottom: 20,
   },
   turnRowText: {
     fontSize: 30,
     fontWeight: '800',
+    color: '#fff',
   },
   tileX: {
     color: 'red',
@@ -194,7 +212,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#000',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -204,6 +222,7 @@ const styles = StyleSheet.create({
     height: 100,
     alignItems: 'center',
     justifyContent: 'center',
+    borderColor: '#fff',
   },
   cellRow: {
     flexDirection: 'row',
