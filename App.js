@@ -1,5 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, TouchableWithoutFeedback, Text} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  TouchableWithoutFeedback,
+  Text,
+  Alert,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const App = () => {
@@ -17,6 +23,57 @@ const App = () => {
       [0, 0, 0],
       [0, 0, 0],
     ]);
+  };
+
+  const checkWinState = () => {
+    const NUM_TILES = 3;
+    let currentGameBoard = gameBoard;
+    let sum;
+
+    // Check rows
+    for (let i = 0; i < NUM_TILES; i++) {
+      sum =
+        currentGameBoard[i][0] +
+        currentGameBoard[i][1] +
+        currentGameBoard[i][2];
+      if (sum === 3) {
+        return 1;
+      } else if (sum === -3) {
+        return -1;
+      }
+    }
+
+    // Check columns
+    for (let i = 0; i < NUM_TILES; i++) {
+      sum =
+        currentGameBoard[0][i] +
+        currentGameBoard[1][i] +
+        currentGameBoard[2][i];
+      if (sum === 3) {
+        return 1;
+      } else if (sum === -3) {
+        return -1;
+      }
+    }
+
+    // Check diagonals
+    sum =
+      currentGameBoard[0][0] + currentGameBoard[1][1] + currentGameBoard[2][2];
+    if (sum === 3) {
+      return 1;
+    } else if (sum === -3) {
+      return -1;
+    }
+    sum =
+      currentGameBoard[0][2] + currentGameBoard[1][1] + currentGameBoard[2][0];
+    if (sum === 3) {
+      return 1;
+    } else if (sum === -3) {
+      return -1;
+    }
+
+    // No win state
+    return 0;
   };
 
   const renderGamePiece = (row, col) => {
@@ -37,6 +94,14 @@ const App = () => {
     currentGameBoard[row][col] = playerTurn;
     setGameBoard(currentGameBoard);
     playerTurn === 1 ? setPlayerTurn(-1) : setPlayerTurn(1);
+    let winner = checkWinState();
+    if (winner === 1) {
+      Alert.alert('Player 1 is the winner');
+      initializeGame();
+    } else if (winner === -1) {
+      Alert.alert('Player 2 is the winner');
+      initializeGame();
+    }
   };
 
   return (
