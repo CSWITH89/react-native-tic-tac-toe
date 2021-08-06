@@ -11,6 +11,7 @@ const App = () => {
   ]);
 
   const initializeGame = () => {
+    setPlayerTurn(1);
     setGameBoard([
       [0, 0, 0],
       [0, 0, 0],
@@ -98,6 +99,14 @@ const App = () => {
           </View>
         </TouchableWithoutFeedback>
       </View>
+
+      <View style={styles.btnRow}>
+        <TouchableWithoutFeedback onPress={() => initializeGame()}>
+          <View style={styles.btnContainer}>
+            <Text style={styles.btnText}>Reset</Text>
+          </View>
+        </TouchableWithoutFeedback>
+      </View>
     </View>
   );
 };
@@ -133,6 +142,18 @@ const styles = StyleSheet.create({
   },
   cellRow: {
     flexDirection: 'row',
+  },
+  btnContainer: {
+    marginTop: 20,
+    backgroundColor: 'red',
+    paddingVertical: 10,
+    paddingHorizontal: 30,
+    borderRadius: 30,
+  },
+  btnText: {
+    fontSize: 30,
+    fontWeight: '800',
+    color: '#fff',
   },
 });
 
